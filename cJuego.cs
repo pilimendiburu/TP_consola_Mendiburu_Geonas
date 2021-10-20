@@ -49,14 +49,16 @@ namespace TP_consola_Mendiburu_Geonas
                 cant_amenazasxCasillas.ImprimirTablero();
 
                 //ALFIL 1
-                while (pos_piezas.tablero[aux.fila, aux.columna] != 0 && matriz_alfil.tablero[aux.fila, aux.columna] != 1)//condicion para ver si se puede mover el alfil{
+                while (pos_piezas.tablero[aux.fila, aux.columna] != 0 || matriz_alfil.tablero[aux.fila, aux.columna] != 1)//condicion para ver si se puede mover el alfil{
                 {
                     aux.EleccionAlAzar();
                 }
                 pos_piezas.tablero[aux.fila, aux.columna] = 6;//alfil 1
                 arrayPiezas[4].pos = aux;
                 casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[4], true);
-
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 //ALFIL 2
                 while (pos_piezas.tablero[aux.fila, aux.columna] != 0 && matriz_alfil.tablero[aux.fila, aux.columna] != 2)//condicion para ver si se puede mover el alfil{
                 {

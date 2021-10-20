@@ -39,6 +39,7 @@ namespace TP_consola_Mendiburu_Geonas
                     }
                 }
             }
+            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] = Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] - 1;
         }
         public void AmenazasMovimientoTorre(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
@@ -80,30 +81,80 @@ namespace TP_consola_Mendiburu_Geonas
                 }
             }
             //complete dos veces la matriz con 1 en la posicion propuesta
-            //Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
+            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
         }
         public void AmenazasMovimientoAlfil(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
+            int cont1 = 0;
+            int cont2 = 0;
+            int cont3 = 0;
+            int cont4 = 0;
+
             for (int i = 0; i < 8; i++)
             {
-                if (i == pieza.pos.fila - 1 || i == pieza.pos.fila + 1)
+                for (int j = 0; j < 8; j++)
                 {
-                    for (int j = 0; j < 8; j++)
+                    if (i == pieza.pos.fila - 1 - cont1 || j == pieza.pos.columna + 1 + cont1)
                     {
                         if (sumar)
                         {
-                            if (j == pieza.pos.columna - 1 || j == pieza.pos.columna + 1)
-                            {
-                                tablero[i, j] = (int)pieza.tipoPieza;
-                                Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
-                            }
+                            tablero[i, j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
+                            cont1++;
                         }
                         else
+                        {
                             Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
-
+                            cont1++;
+                        }
                     }
+                    if (i == pieza.pos.fila + 1 + cont2 || j == pieza.pos.columna - 1 - cont2)
+                    {
+                        if (sumar)
+                        {
+                            tablero[i, j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
+                            cont2++;
+                        }
+                        else
+                        {
+                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
+                            cont2++;
+                        }
+                    }
+                    if (i == pieza.pos.fila - 1 - cont3 || j == pieza.pos.columna - 1 - cont3)
+                    {
+                        if (sumar)
+                        {
+                            tablero[i, j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
+                            cont3++;
+                        }
+                        else
+                        {
+                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
+                            cont3++;
+                        }
+                    }
+                    if (i == (pieza.pos.fila + 1 + cont4) || j == (pieza.pos.columna - 1 - cont4))
+                    {
+                        if (sumar)
+                        {
+                            tablero[i, j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
+                            cont4++;
+                        }
+                        else
+                        {
+                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
+                            cont4++;
+                        }
+                    }
+                    
                 }
+
             }
+            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
         }
         public void AmenazasMovimientoReina(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
