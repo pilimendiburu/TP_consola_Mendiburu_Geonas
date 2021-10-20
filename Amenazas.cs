@@ -51,11 +51,11 @@ namespace TP_consola_Mendiburu_Geonas
                         if (sumar)
                         {
                             tablero[i, j] = (int)pieza.tipoPieza;//completo matriz con amenazas con nro correspondiente
-                            Amz_x_Cas[i, j] = +1;//completo matriz con cant ataques sumando 1
+                            Amz_x_Cas[i, j]= Amz_x_Cas[i, j] + 1;//completo matriz con cant ataques sumando 1
                         }
                         else
                         {
-                            Amz_x_Cas[i, j] = -1;
+                            Amz_x_Cas[i, j] = Amz_x_Cas[j, i] - 1;
                         }
                     }
                     
@@ -70,11 +70,11 @@ namespace TP_consola_Mendiburu_Geonas
                         if (sumar)
                         {
                             tablero[j, i] = (int)pieza.tipoPieza;//completo matriz con amenazas con nro correspondiente
-                            Amz_x_Cas[j, i] = +1;//completo matriz con cant ataques sumando 1
+                            Amz_x_Cas[j, i] = Amz_x_Cas[j, i] + 1;//completo matriz con cant ataques sumando 1
                         }
                         else
                         {
-                            Amz_x_Cas[j, i] = -1;
+                            Amz_x_Cas[j, i] = Amz_x_Cas[j, i] - 1;
                         }
                     }
                 }
@@ -86,15 +86,21 @@ namespace TP_consola_Mendiburu_Geonas
         {
             for (int i = 0; i < 8; i++)
             {
-                for (int j = 0; j < 8; j++)
+                if (i == pieza.pos.fila - 1 || i == pieza.pos.fila + 1)
                 {
-                    if (i == pieza.pos.fila - 1 || i == pieza.pos.fila + 1)
+                    for (int j = 0; j < 8; j++)
                     {
-                        if (j == pieza.pos.columna - 1 || j == pieza.pos.columna + 1)
+                        if (sumar)
                         {
-                            tablero[i, j] = (int)pieza.tipoPieza;
-                            Amz_x_Cas[i, j] += 1;
+                            if (j == pieza.pos.columna - 1 || j == pieza.pos.columna + 1)
+                            {
+                                tablero[i, j] = (int)pieza.tipoPieza;
+                                Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
+                            }
                         }
+                        else
+                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
+
                     }
                 }
             }
