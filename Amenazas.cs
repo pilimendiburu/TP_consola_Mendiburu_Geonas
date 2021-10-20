@@ -46,25 +46,41 @@ namespace TP_consola_Mendiburu_Geonas
             {
                 if (i == pieza.pos.fila)
                 {
-                    tablero[i, pieza.pos.columna] = (int)pieza.tipoPieza;//completo matriz con amenazas con nro correspondiente
-                    Amz_x_Cas[i, pieza.pos.columna] = +1;//completo matriz con cant ataques sumando 1
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if (sumar)
+                        {
+                            tablero[i, j] = (int)pieza.tipoPieza;//completo matriz con amenazas con nro correspondiente
+                            Amz_x_Cas[i, j] = +1;//completo matriz con cant ataques sumando 1
+                        }
+                        else
+                        {
+                            Amz_x_Cas[i, j] = -1;
+                        }
+                    }
+                    
                 }
             }
             for (int i = 0; i < 8; i++)
             {
                 if (i == pieza.pos.columna)
                 {
-                    if (sumar)
+                    for (int j = 0; j < 8; j++)
                     {
-                        tablero[pieza.pos.fila, i] = (int)pieza.tipoPieza;
-                        Amz_x_Cas[pieza.pos.fila, i] = +1;
+                        if (sumar)
+                        {
+                            tablero[j, i] = (int)pieza.tipoPieza;//completo matriz con amenazas con nro correspondiente
+                            Amz_x_Cas[j, i] = +1;//completo matriz con cant ataques sumando 1
+                        }
+                        else
+                        {
+                            Amz_x_Cas[j, i] = -1;
+                        }
                     }
-                    else
-                        Amz_x_Cas[pieza.pos.fila, i] = -1;
                 }
             }
             //complete dos veces la matriz con 1 en la posicion propuesta
-            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
+            //Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
         }
         public void AmenazasMovimientoAlfil(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {

@@ -25,9 +25,13 @@ namespace TP_consola_Mendiburu_Geonas
                 //TORRE1
                 arrayPiezas[2].pos.EleccionAlAzar();
                 casillas_amenazadas.AmenazasMovimientoTorre(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[2], true);
+                pos_piezas.tablero[arrayPiezas[2].pos.fila, arrayPiezas[2].pos.columna] = (int)arrayPiezas[2].tipoPieza;
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 //TORRE 2:
                 cPosicion aux = new cPosicion();
-                aux.EleccionAlAzar();
+                aux = arrayPiezas[2].pos;//le cambie pq sino nunca entraba al while
                 while (pos_piezas.tablero[aux.fila, aux.columna] != 0 && aux.fila == arrayPiezas[2].pos.fila && arrayPiezas[2].pos.columna == aux.columna)
                 {
                     aux.EleccionAlAzar();
@@ -40,6 +44,9 @@ namespace TP_consola_Mendiburu_Geonas
                                                                   //COMPLETO POSICIONES AMENAZADAS CON EL CABALLO DESDE POSICION PROPUESTA
                     casillas_amenazadas.AmenazasMovimientoTorre(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[3], true);
                 }
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
 
                 //ALFIL 1
                 while (pos_piezas.tablero[aux.fila, aux.columna] != 0 && matriz_alfil.tablero[aux.fila, aux.columna] != 1)//condicion para ver si se puede mover el alfil{
@@ -292,7 +299,7 @@ namespace TP_consola_Mendiburu_Geonas
         }
        public cJuego()
         {
-            cant_tableros_a_generar = 0;
+            cant_tableros_a_generar = 10;//inicializo 10 pa que funque
             cant_tab_generados = 0;
             matriz_alfil = new cTablero();
             casillas_amenazadas = new Amenazas();
