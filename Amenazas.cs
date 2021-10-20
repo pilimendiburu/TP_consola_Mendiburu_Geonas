@@ -85,117 +85,99 @@ namespace TP_consola_Mendiburu_Geonas
         }
         public void AmenazasMovimientoAlfil(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
-            int cont1 = 0;
-            int cont2 = 0;
-            int cont3 = 0;
-            int cont4 = 0;
-
-            for (int i = 0; i < 8; i++)
+           
+            int i = pieza.pos.fila;
+            int j = pieza.pos.columna;
+            if (sumar)
             {
-                for (int j = 0; j < 8; j++)
+                while ((i >= 0 && j >= 0) && (i <= 7 && j <= 7))
                 {
-                    if (i == pieza.pos.fila - 1 - cont1 || j == pieza.pos.columna + 1 + cont1)
-                    {
-                        if (sumar)
-                        {
-                            tablero[i, j] = (int)pieza.tipoPieza;
-                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
-                            cont1++;
-                        }
-                        else
-                        {
-                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
-                            cont1++;
-                        }
-                    }
-                    if (i == pieza.pos.fila + 1 + cont2 || j == pieza.pos.columna - 1 - cont2)
-                    {
-                        if (sumar)
-                        {
-                            tablero[i, j] = (int)pieza.tipoPieza;
-                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
-                            cont2++;
-                        }
-                        else
-                        {
-                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
-                            cont2++;
-                        }
-                    }
-                    if (i == pieza.pos.fila - 1 - cont3 || j == pieza.pos.columna - 1 - cont3)
-                    {
-                        if (sumar)
-                        {
-                            tablero[i, j] = (int)pieza.tipoPieza;
-                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
-                            cont3++;
-                        }
-                        else
-                        {
-                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
-                            cont3++;
-                        }
-                    }
-                    if (i == (pieza.pos.fila + 1 + cont4) || j == (pieza.pos.columna - 1 - cont4))
-                    {
-                        if (sumar)
-                        {
-                            tablero[i, j] = (int)pieza.tipoPieza;
-                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] + 1;
-                            cont4++;
-                        }
-                        else
-                        {
-                            Amz_x_Cas[i, j] = Amz_x_Cas[i, j] - 1;
-                            cont4++;
-                        }
-                    }
+                    Amz_x_Cas[i, j] += 1;
+                    tablero[i, j] = (int)pieza.tipoPieza;
                     
+                    i++;
+                    j++;
                 }
-
+                i = pieza.pos.fila;
+                j = pieza.pos.columna;
+                while ((i >= 0 && j >= 0) && (i <= 7 && j <= 7))
+                {
+                    Amz_x_Cas[i, j] += 1;
+                    tablero[i, j] = (int)pieza.tipoPieza;
+                    
+                    i--;
+                    j--;
+                }
+                Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
+                i = pieza.pos.fila;
+                j = pieza.pos.columna;
+                while ((i >= 0 && j >= 0) && (i <= 7 && j <= 7))
+                {
+                    Amz_x_Cas[i, j] += 1;
+                    tablero[i, j] = (int)pieza.tipoPieza;
+                    
+                    i++;
+                    j--;
+                }
+                Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
+                i = pieza.pos.fila;
+                j = pieza.pos.columna;
+                while ((i >= 0 && j >= 0) && (i <= 7 && j <= 7))
+                {
+                    Amz_x_Cas[i, j] += 1;
+                    tablero[i, j] = (int)pieza.tipoPieza;
+                   
+                    i--;
+                    j++;
+                }
+                Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
             }
-            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
+            else
+            {
+                while ((i >= 0 && j >= 0) && (i <= 7 && j <= 7))
+                {
+                    Amz_x_Cas[i,j]-= 1;                   
+                  
+                    i++;
+                    j++;
+                }
+                i = pieza.pos.fila;
+                j = pieza.pos.columna;
+                while ((i >= 0 && j >= 0) && (i <= 7 && j <= 7))
+                {
+                    Amz_x_Cas[i,j] -= 1;
+                   
+                    i--;
+                    j--;
+                }
+                Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] += 1;
+                i = pieza.pos.fila;
+                j = pieza.pos.columna;
+                while ((i >= 0 && j >= 0) && (i <= 7 && j <= 7))
+                {
+                    Amz_x_Cas[i, j] -= 1;                   
+                    
+                    i++;
+                    j--;
+                }
+                Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] += 1;
+                i = pieza.pos.fila;
+                j = pieza.pos.columna;
+                while ((i >= 0 && j >= 0) && (i <= 7 && j <= 7))
+                {
+                    Amz_x_Cas[i, j] -= 1;                    
+                    
+                    i--;
+                    j++;
+                }
+                Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] += 1;
+            }
         }
         public void AmenazasMovimientoReina(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                    if (i == pieza.pos.fila - 1 || i == pieza.pos.fila + 1)
-                    {
-                        if (j == pieza.pos.columna - 1 || j == pieza.pos.columna + 1)
-                        {
-                            if (sumar == true)
-                            {
-                                tablero[i, j] = (int)pieza.tipoPieza;
-                                Amz_x_Cas[i, j] += 1;
-                            }
-                            else
-                                Amz_x_Cas[i, j] -= 1;
-
-                        }
-                    }
-            }
-            for (int i = 0; i < 8; i++)
-            {
-                if (i == pieza.pos.fila)
-                {
-                    tablero[i, pieza.pos.columna] = (int)pieza.tipoPieza;//completo matriz con amenazas con nro correspondiente
-                    Amz_x_Cas[i, pieza.pos.columna] += 1;//completo matriz con cant ataques sumando 1
-                }
-            }
-            for (int i = 0; i < 8; i++)
-            {
-                if (i == pieza.pos.columna)
-                {
-                    if (sumar)
-                        tablero[pieza.pos.fila, i] = (int)pieza.tipoPieza;
-                    Amz_x_Cas[pieza.pos.fila, i] += 1;
-                }
-                else
-                    Amz_x_Cas[pieza.pos.fila, i] -= 1;
-            }
-            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] -= 1;
+            AmenazasMovimientoAlfil(Amz_x_Cas, pos_piezas, pieza, sumar);
+            AmenazasMovimientoTorre(Amz_x_Cas, pos_piezas, pieza, sumar);
+            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] += 1; 
         }
 
         public void AmenazasMovimientoRey(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
