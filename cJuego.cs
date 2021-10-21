@@ -123,11 +123,12 @@ namespace TP_consola_Mendiburu_Geonas
                     Console.WriteLine(ex.Message);
                     // MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                pos_piezas.tablero[arrayPiezas[1].pos.fila, arrayPiezas[1].pos.fila] = 3;//caballo2
+                casillas_amenazadas.tablero[arrayPiezas[1].pos.fila, arrayPiezas[1].pos.fila] = 3;//caballo2
                 //COMPLETO POSICIONES AMENAZADAS CON EL CABALLO DESDE POSICION PROPUESTA
                 // ...
                 //COMPLETO MATRIZ cant_amenazas_casillas CON 1 EN LAS POSICIONES DONDE AMENAZA CABALLO
                 casillas_amenazadas.AmenazasMovimientoCaballos(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[1], true);
+                
                 //busco tercera->rey
                 //REY -> me fijo si no hay ninguna pieza o si esta el alfil -> puedo superponer
                 try

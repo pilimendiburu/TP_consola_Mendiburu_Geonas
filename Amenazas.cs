@@ -26,7 +26,7 @@ namespace TP_consola_Mendiburu_Geonas
                 {
                     if (i == pieza.pos.fila)
                         break;
-                    if((i==(pieza.pos.fila+2)&&pieza.pos.columna+1==j)||(i==pieza.pos.fila-2&&pieza.pos.columna+1==j))
+                    if((i==(pieza.pos.fila+2)&&pieza.pos.columna+1==j)||(i==(pieza.pos.fila-2)&&(pieza.pos.columna+1)==j))
                     {
                         if (sumar)
                         {
@@ -70,7 +70,8 @@ namespace TP_consola_Mendiburu_Geonas
                     
                 }
             }
-            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] = Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] - 1;
+            tablero[pieza.pos.fila, pieza.pos.columna] = (int)pieza.tipoPieza;
+            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] = Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] + 1;
         }
         public void AmenazasMovimientoTorre(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
