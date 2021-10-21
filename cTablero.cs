@@ -16,15 +16,22 @@ namespace TP_consola_Mendiburu_Geonas
 
         //metodos:
         
-        public void LiberarPieza(Pieza pieza) {
+        public cPosicion LiberarPieza(int pieza) {
+            cPosicion p_pieza = new cPosicion();
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if ((int)pieza.tipoPieza == tablero[i,j])
-                        tablero[i,j] = 0;
+                    if (pieza == tablero[i, j])
+                    {
+                        p_pieza.fila = i;
+                        p_pieza.columna = j;
+                        tablero[i, j] = 0;
+                        return p_pieza;
+                    }
                 }
             }
+            return p_pieza;//retorna -1
         }
         public cTablero()
         {

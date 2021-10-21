@@ -213,6 +213,7 @@ namespace TP_consola_Mendiburu_Geonas
         }
         public cPosicion BuscarPosicionLibre(bool rey = false)
         {
+            //int cont = 0;
             cPosicion pos = new cPosicion();
             for (int i = 0; i < 8; i++)
             {
@@ -225,20 +226,21 @@ namespace TP_consola_Mendiburu_Geonas
                             pos.fila = i;
                             pos.columna = j;
                             return pos;
-                            casillas_no_amenazadas++;
+                            //casillas_no_amenazadas=cont+1;
                         }
                     }
                     else if (0 == tablero[i, j])
                     {
                         pos.fila = i;
                         pos.columna = j;
-                        casillas_no_amenazadas++;
+                        //casillas_no_amenazadas = cont + 1;
                         return pos;
                     }
                 }
             }
             // throw Exceptio
             //si la posicion es -1 ¡Tengo tablero!
+            //return pos;
             throw new NullReferenceException("Error.");
 
             //  return pos;//seria -1, podemos tirar excepcion?
@@ -341,6 +343,47 @@ namespace TP_consola_Mendiburu_Geonas
 
 
         }
-
+        public void AmenazarTablero(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza[] piezas, bool sumar) {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0;  j< 8; j++)
+                {
+                    Amz_x_Cas[i, j] = 0;
+                }
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                
+                switch (piezas[i].tipoPieza)
+                {
+                    case e_Pieza.CABALLO1:
+                        AmenazasMovimientoCaballos(Amz_x_Cas, pos_piezas, piezas[i], sumar);
+                        break;
+                    case e_Pieza.CABALLO2:
+                        AmenazasMovimientoCaballos(Amz_x_Cas, pos_piezas, piezas[i], sumar);
+                        break;
+                    case e_Pieza.TORRE1:
+                        AmenazasMovimientoTorre(Amz_x_Cas, pos_piezas, piezas[i], sumar);
+                        break;
+                    case e_Pieza.TORRE2:
+                        AmenazasMovimientoTorre(Amz_x_Cas, pos_piezas, piezas[i], sumar);
+                        break;
+                    case e_Pieza.ALFIL1:
+                        AmenazasMovimientoAlfil(Amz_x_Cas, pos_piezas, piezas[i], sumar);
+                        break;
+                    case e_Pieza.ALFIL2:
+                        AmenazasMovimientoAlfil(Amz_x_Cas, pos_piezas, piezas[i], sumar);
+                        break;
+                    case e_Pieza.REINA:
+                        AmenazasMovimientoReina(Amz_x_Cas, pos_piezas, piezas[i], sumar);
+                        break;
+                    case e_Pieza.REY:
+                        AmenazasMovimientoRey(Amz_x_Cas, pos_piezas, piezas[i], sumar);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }
