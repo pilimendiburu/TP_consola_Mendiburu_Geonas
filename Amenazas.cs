@@ -179,7 +179,6 @@ namespace TP_consola_Mendiburu_Geonas
             AmenazasMovimientoTorre(Amz_x_Cas, pos_piezas, pieza, sumar);
             Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] += 1; 
         }
-
         public void AmenazasMovimientoRey(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
             for (int i = 0; i < 8; i++)
