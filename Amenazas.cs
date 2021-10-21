@@ -24,22 +24,54 @@ namespace TP_consola_Mendiburu_Geonas
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (i <= pieza.pos.fila - 2 || i <= pieza.pos.fila + 2)
+                    if (i == pieza.pos.fila)
+                        break;
+                    if((i==(pieza.pos.fila+2)&&pieza.pos.columna+1==j)||(i==(pieza.pos.fila-2)&&(pieza.pos.columna+1)==j))
                     {
-                        if (j <= pieza.pos.columna - 2 || j <= pieza.pos.columna + 2)
+                        if (sumar)
                         {
-                            if (sumar)
-                            {
-                                tablero[i, pieza.pos.columna] = (int)pieza.tipoPieza;
-                                Amz_x_Cas[i, pieza.pos.columna]++;
-                            }
-                            else
-                                Amz_x_Cas[i, pieza.pos.columna]--;
+                            tablero[i,j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i,j]++;
                         }
+                        else
+                            Amz_x_Cas[i, j]--;
                     }
+                    if ((pieza.pos.fila+2==i&&j==pieza.pos.columna-1)||(pieza.pos.fila-2==i&&j==pieza.pos.columna-1))
+                    {
+
+                        if (sumar)
+                        {
+                            tablero[i, j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i, j]++;
+                        }
+                        else
+                            Amz_x_Cas[i, j]--;
+                    }
+                    if ((pieza.pos.fila+1==i&&j==pieza.pos.columna+2)||(pieza.pos.fila-1==i&&j==pieza.pos.columna+2))
+                    {
+                        if (sumar)
+                        {
+                            tablero[i,j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i,j]++;
+                        }
+                        else
+                            Amz_x_Cas[i, pieza.pos.columna]--;
+                    }
+                    if ((pieza.pos.fila+1==i&&j==pieza.pos.columna-2)||(pieza.pos.fila-1==i&&j==pieza.pos.columna-2))
+                    {
+                        if (sumar)
+                        {
+                            tablero[i, j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i, j]++;
+                        }
+                        else
+                            Amz_x_Cas[i,j]--;
+                    }
+                    
                 }
             }
-            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] = Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] - 1;
+            tablero[pieza.pos.fila, pieza.pos.columna] = (int)pieza.tipoPieza;
+            Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] = Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] + 1;
         }
         public void AmenazasMovimientoTorre(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
@@ -179,12 +211,45 @@ namespace TP_consola_Mendiburu_Geonas
             AmenazasMovimientoTorre(Amz_x_Cas, pos_piezas, pieza, sumar);
             Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] += 1; 
         }
+        public cPosicion BuscarPosicionLibre(bool rey = false)
+        {
+            cPosicion pos = new cPosicion();
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (rey)
+                    {
+                        if (0 == tablero[i, j] || tablero[i, j] == 6 || tablero[i, j] == 7)
+                        {
+                            pos.fila = i;
+                            pos.columna = j;
+                            return pos;
+                            casillas_no_amenazadas++;
+                        }
+                    }
+                    else if (0 == tablero[i, j])
+                    {
+                        pos.fila = i;
+                        pos.columna = j;
+                        casillas_no_amenazadas++;
+                        return pos;
+                    }
+                }
+            }
+            // throw Exceptio
+            //si la posicion es -1 ¡Tengo tablero!
+            throw new NullReferenceException("Error.");
+
+            //  return pos;//seria -1, podemos tirar excepcion?
+        }
         public void AmenazasMovimientoRey(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
+     
                     if (pieza.pos.fila == i)
                     {
                         if (pieza.pos.columna - 1 == j || j == pieza.pos.columna + 1)
@@ -227,6 +292,7 @@ namespace TP_consola_Mendiburu_Geonas
                 }
 
             }
+            tablero[pieza.pos.fila, pieza.pos.columna] =(int) pieza.tipoPieza;
         }
         public void BuscarYdesamenazar_porPieza(int[,] Amz_x_Cas, Pieza pieza, int[,] pos_piezas)
         {

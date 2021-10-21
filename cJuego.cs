@@ -67,11 +67,13 @@ namespace TP_consola_Mendiburu_Geonas
                 pos_piezas.tablero[aux.fila, aux.columna] = 7;//alfil 2
                 arrayPiezas[5].pos = aux;
                 casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[5], true);
-
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 //REINA
 
                 while (pos_piezas.tablero[aux.fila, aux.columna] != 0
-                    && (casillas_amenazadas.tablero[aux.fila, aux.columna] == 6 ||
+                    || (casillas_amenazadas.tablero[aux.fila, aux.columna] == 6 ||
                     casillas_amenazadas.tablero[aux.fila, aux.columna] == 2) && ((aux.columna == arrayPiezas[2].pos.columna ||
                     aux.fila == arrayPiezas[2].pos.fila) || (aux.columna == arrayPiezas[3].pos.columna ||
                     aux.fila == arrayPiezas[3].pos.fila)))
@@ -82,15 +84,17 @@ namespace TP_consola_Mendiburu_Geonas
 
                 if (pos_piezas.tablero[aux.fila, aux.columna] == 0)
                 {
-                    pos_piezas.tablero[aux.fila, aux.columna] = 8;//alfil 2
+                    pos_piezas.tablero[aux.fila, aux.columna] = 8;//Reina
                     arrayPiezas[6].pos = aux;
-                    casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[6], true);
+                    casillas_amenazadas.AmenazasMovimientoReina(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[6], true);
                 }
-
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 //busco primer posición vacia ->pongo caballo
                 try
                 {
-                    arrayPiezas[0].pos = pos_piezas.BuscarPosicionLibre();
+                    arrayPiezas[0].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
                 }
                 catch (Exception ex)
                 {
@@ -98,7 +102,7 @@ namespace TP_consola_Mendiburu_Geonas
                     // MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 //cPosicion paux = new cPosicion();//creo una posicion nueva que va a estar inicializada en -
-                pos_piezas.tablero[arrayPiezas[0].pos.fila, arrayPiezas[0].pos.fila] = 2;//caballo
+                pos_piezas.tablero[arrayPiezas[0].pos.fila, arrayPiezas[0].pos.columna] = 2;//caballo
                                                                                          //Lleno matriz con posiciones que amenazan
 
                 //COMPLETO POSICIONES AMENAZADAS CON EL CABALLO DESDE POSICION PROPUESTA
@@ -107,34 +111,42 @@ namespace TP_consola_Mendiburu_Geonas
 
                 casillas_amenazadas.AmenazasMovimientoCaballos(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[0], true);
                 //busco segunda->otro caballo
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 try
                 {
-                    arrayPiezas[1].pos = pos_piezas.BuscarPosicionLibre();
+                    arrayPiezas[1].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     // MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                pos_piezas.tablero[arrayPiezas[1].pos.fila, arrayPiezas[1].pos.fila] = 3;//caballo2
+                pos_piezas.tablero[arrayPiezas[1].pos.fila, arrayPiezas[1].pos.columna] = 3;//caballo2
                 //COMPLETO POSICIONES AMENAZADAS CON EL CABALLO DESDE POSICION PROPUESTA
                 // ...
                 //COMPLETO MATRIZ cant_amenazas_casillas CON 1 EN LAS POSICIONES DONDE AMENAZA CABALLO
                 casillas_amenazadas.AmenazasMovimientoCaballos(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[1], true);
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 //busco tercera->rey
                 //REY -> me fijo si no hay ninguna pieza o si esta el alfil -> puedo superponer
                 try
                 {
-                    arrayPiezas[7].pos = pos_piezas.BuscarPosicionLibre();
+                    arrayPiezas[7].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     // MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                pos_piezas.tablero[arrayPiezas[7].pos.fila, arrayPiezas[7].pos.fila] = 9;
+                pos_piezas.tablero[arrayPiezas[7].pos.fila, arrayPiezas[7].pos.columna] = 9;
                 casillas_amenazadas.AmenazasMovimientoRey(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[7], true);
-
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 //UNA VEZ QUE TENGO COMPLETA MATRICES
                 cPosicion pos_sin_Amenazas = new cPosicion();
                 int contador = 0;
@@ -156,76 +168,63 @@ namespace TP_consola_Mendiburu_Geonas
                         }
                     }
                     //fijarme si esta completo
-                }
-                if (casillas_amenazadas.casillas_no_amenazadas == 0) {// si matriz amenazada completa que termine el while
-                    pos_piezas.ImprimirTablero();
-                    break;//tengo tablero
-                }
 
-                //Si no esta del todo amenazado tengo que empezar a mover piezas hasta tener una solucion
-
-
-                //MUEVO PIEZA DONDE HAY MAYOR CANTIDAD DE AMENAZAS -> me fijo con matriz cant_amenazas 
-                //muevo 1 pieza por 2/3 casillas no amenazadas -> lo intento 3 veces si no funca empieza de nuevo
-
-                for (int i = 0; i < 8; i++)
-                {
-                    for (int j = 0; j < 8; j++)
-                    {
-                        if ((int)cant_amenazasxCasillas.tablero[i, j] > cant_amenazasxCasillas.max_amenazas)
-                        {
-                            cant_amenazasxCasillas.max_amenazas = (int)cant_amenazasxCasillas.tablero[i, j];
-                            cant_amenazasxCasillas.pos_max_amenazas.fila = i;
-                            cant_amenazasxCasillas.pos_max_amenazas.columna = j;
-                        }
-
+                    if (casillas_amenazadas.casillas_no_amenazadas == 0)
+                    {// si matriz amenazada completa que termine el while
+                        pos_piezas.ImprimirTablero();
+                        break;//tengo tablero
                     }
-                }
-                //si cuanas casillas libres->rip
-                //ya tengo posicion con mi maximo-> movemos pieza posicionada en lugar de mas amenazas
-                for (int i = 0; i < 8; i++)
-                {
-                    for (int j = 0; j < 8; j++)
+
+                    //Si no esta del todo amenazado tengo que empezar a mover piezas hasta tener una solucion
+                    //-----------------------------------------------------------------------------------------
+                    //Llegue a chequear hasta acá!
+
+                    //MUEVO PIEZA DONDE HAY MAYOR CANTIDAD DE AMENAZAS -> me fijo con matriz cant_amenazas 
+                    //muevo 1 pieza por 2/3 casillas no amenazadas -> lo intento 3 veces si no funca empieza de nuevo
+
+                    for (int i = 0; i < 8; i++)
                     {
+                        for (int j = 0; j < 8; j++)
+                        {
+                            if ((int)cant_amenazasxCasillas.tablero[i, j] > cant_amenazasxCasillas.max_amenazas)
+                            {
+                                cant_amenazasxCasillas.max_amenazas = (int)cant_amenazasxCasillas.tablero[i, j];
+                                cant_amenazasxCasillas.pos_max_amenazas.fila = i;
+                                cant_amenazasxCasillas.pos_max_amenazas.columna = j;
+                            }
 
-                        //TENEMOS QUE CAMBIAR LA PIEZA DE LUGAR -> movemos la pieza donde mayor amenazas hay a la primer posicion libre que encontremos.
+                        }
+                    }
+                    //si cuanas casillas libres->rip
+                    //ya tengo posicion con mi maximo-> movemos pieza posicionada en lugar de mas amenazas
+                    for (int i = 0; i < 8; i++)
+                    {
+                        for (int j = 0; j < 8; j++)
+                        {
 
-                        if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 3)
-                        {
-                            pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 3;
-                            pos_piezas.LiberarPieza(arrayPiezas[1]);
-                            casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[1], pos_piezas.tablero);
-                            casillas_amenazadas.AmenazasMovimientoCaballos(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[1], true);
-                        }
-                        if (casillas_amenazadas.casillas_no_amenazadas == 0)
-                        {
-                            //si matriz amenazada completa que termine el while
-                            pos_piezas.ImprimirTablero();
-                            break;
-                        }
-                        //falta vaciar las casillas que se liberan al mover la pieza
-                        //una mega funcion que chequee todo
-                        if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 4)
-                        {
-                            pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 4;
-                            pos_piezas.LiberarPieza(arrayPiezas[2]);
-                            casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[2], pos_piezas.tablero);
-                            casillas_amenazadas.AmenazasMovimientoTorre(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[2], true);
+                            //TENEMOS QUE CAMBIAR LA PIEZA DE LUGAR -> movemos la pieza donde mayor amenazas hay a la primer posicion libre que encontremos.
+
+                            if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 3)
+                            {
+                                pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 3;
+                                pos_piezas.LiberarPieza(arrayPiezas[1]);
+                                casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[1], pos_piezas.tablero);
+                                casillas_amenazadas.AmenazasMovimientoCaballos(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[1], true);
+                            }
                             if (casillas_amenazadas.casillas_no_amenazadas == 0)
                             {
                                 //si matriz amenazada completa que termine el while
                                 pos_piezas.ImprimirTablero();
                                 break;
                             }
-                        }
-                        if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 7)
-                        {
-                            if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 7)
+                            //falta vaciar las casillas que se liberan al mover la pieza
+                            //una mega funcion que chequee todo
+                            if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 4)
                             {
-                                pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 7;
-                                pos_piezas.LiberarPieza(arrayPiezas[5]);
-                                casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[5], pos_piezas.tablero);
-                                casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[5], true);
+                                pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 4;
+                                pos_piezas.LiberarPieza(arrayPiezas[2]);
+                                casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[2], pos_piezas.tablero);
+                                casillas_amenazadas.AmenazasMovimientoTorre(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[2], true);
                                 if (casillas_amenazadas.casillas_no_amenazadas == 0)
                                 {
                                     //si matriz amenazada completa que termine el while
@@ -233,70 +232,87 @@ namespace TP_consola_Mendiburu_Geonas
                                     break;
                                 }
                             }
-                        }
-                        else
-                        {
-                            pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 6;
-                            pos_piezas.LiberarPieza(arrayPiezas[4]);
-                            casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[4], pos_piezas.tablero);
-                            casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[4], true);
-                            if (casillas_amenazadas.casillas_no_amenazadas == 0)
+                            if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 7)
                             {
-                                //si matriz amenazada completa que termine el while
-                                pos_piezas.ImprimirTablero();
-                                break;
+                                if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 7)
+                                {
+                                    pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 7;
+                                    pos_piezas.LiberarPieza(arrayPiezas[5]);
+                                    casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[5], pos_piezas.tablero);
+                                    casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[5], true);
+                                    if (casillas_amenazadas.casillas_no_amenazadas == 0)
+                                    {
+                                        //si matriz amenazada completa que termine el while
+                                        pos_piezas.ImprimirTablero();
+                                        break;
+                                    }
+                                }
                             }
-                        }
-                        //falta vaciar las casillas que se liberan al mover la pieza
-                        //una mega funcion que chequee todo
-                        if ((int)casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 8)
-                        {
-                            pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 8;
-                            pos_piezas.LiberarPieza(arrayPiezas[6]);
-                            casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[6], pos_piezas.tablero);
-                            casillas_amenazadas.AmenazasMovimientoReina(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[6], true);
-                            if (casillas_amenazadas.casillas_no_amenazadas == 0)
-                            {//si matriz amenazada completa que termine el while
-                                pos_piezas.ImprimirTablero();
-                                break;
-                            }
-                        }
-                        if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 9)
-                        {
-                            pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 9;
-                            pos_piezas.LiberarPieza(arrayPiezas[7]);
-                            casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[7], pos_piezas.tablero);
-                            casillas_amenazadas.AmenazasMovimientoRey(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[7], true);
-                            if (casillas_amenazadas.casillas_no_amenazadas == 0) {// si matriz amenazada completa que termine el while
-                                pos_piezas.ImprimirTablero();
-                                break;
-                            }
-                        }
-                    }
-                    for (int k = 0; k < 8; k++)
-                    {
-                        for (int l = 0; l < 8; l++)
-                        {
-                            if (casillas_amenazadas.tablero[k, l] == 0)
+                            else
                             {
-                                cPosicion posSinAmenaza = new cPosicion();
-                                posSinAmenaza.fila = k;
-                                posSinAmenaza.columna = l;//en un futuro capaz hacer un struct posición           que tenga columna y fila
-                                                          //ya significa que no encontro una solucion
-                                casillas_amenazadas.casillas_no_amenazadas++;
+                                pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 6;
+                                pos_piezas.LiberarPieza(arrayPiezas[4]);
+                                casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[4], pos_piezas.tablero);
+                                casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[4], true);
+                                if (casillas_amenazadas.casillas_no_amenazadas == 0)
+                                {
+                                    //si matriz amenazada completa que termine el while
+                                    pos_piezas.ImprimirTablero();
+                                    break;
+                                }
+                            }
+                            //falta vaciar las casillas que se liberan al mover la pieza
+                            //una mega funcion que chequee todo
+                            if ((int)casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 8)
+                            {
+                                pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 8;
+                                pos_piezas.LiberarPieza(arrayPiezas[6]);
+                                casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[6], pos_piezas.tablero);
+                                casillas_amenazadas.AmenazasMovimientoReina(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[6], true);
+                                if (casillas_amenazadas.casillas_no_amenazadas == 0)
+                                {//si matriz amenazada completa que termine el while
+                                    pos_piezas.ImprimirTablero();
+                                    break;
+                                }
+                            }
+                            if (casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] == 9)
+                            {
+                                pos_piezas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna] = 9;
+                                pos_piezas.LiberarPieza(arrayPiezas[7]);
+                                casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[7], pos_piezas.tablero);
+                                casillas_amenazadas.AmenazasMovimientoRey(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[7], true);
+                                if (casillas_amenazadas.casillas_no_amenazadas == 0)
+                                {// si matriz amenazada completa que termine el while
+                                    pos_piezas.ImprimirTablero();
+                                    break;
+                                }
                             }
                         }
+                        for (int k = 0; k < 8; k++)
+                        {
+                            for (int l = 0; l < 8; l++)
+                            {
+                                if (casillas_amenazadas.tablero[k, l] == 0)
+                                {
+                                    cPosicion posSinAmenaza = new cPosicion();
+                                    posSinAmenaza.fila = k;
+                                    posSinAmenaza.columna = l;//en un futuro capaz hacer un struct posición           que tenga columna y fila
+                                                              //ya significa que no encontro una solucion
+                                    casillas_amenazadas.casillas_no_amenazadas++;
+                                }
+                            }
+                        }
+                        //fijarme si esta completo
                     }
-                    //fijarme si esta completo
-                }
-                if (casillas_amenazadas.casillas_no_amenazadas == 0)
-                {//si matriz amenazada completa que termine el while
-                    pos_piezas.ImprimirTablero();
-                    break;
-                }
-                //HAGO NUEVOS MOVIMIENTOS DE PIEZAS
+                    if (casillas_amenazadas.casillas_no_amenazadas == 0)
+                    {//si matriz amenazada completa que termine el while
+                        pos_piezas.ImprimirTablero();
+                        break;
+                    }
+                    //HAGO NUEVOS MOVIMIENTOS DE PIEZAS
 
-                contador++;//si no llegamos a obtener un tablero despues de repetir proceso 3 veces-> empezamos de 0
+                    contador++;//si no llegamos a obtener un tablero despues de repetir proceso 3 veces-> empezamos de 0
+                }
             }//termina el while
         }
        public cJuego()
