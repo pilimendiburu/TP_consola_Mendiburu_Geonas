@@ -39,6 +39,7 @@ namespace TP_consola_Mendiburu_Geonas
                 }
             }
             // throw Exceptio
+            //si la posicion es -1 ¡Tengo tablero!
             throw new NullReferenceException("Error."); 
 
           //  return pos;//seria -1, podemos tirar excepcion?

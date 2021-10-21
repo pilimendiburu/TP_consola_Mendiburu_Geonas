@@ -67,11 +67,13 @@ namespace TP_consola_Mendiburu_Geonas
                 pos_piezas.tablero[aux.fila, aux.columna] = 7;//alfil 2
                 arrayPiezas[5].pos = aux;
                 casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[5], true);
-
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 //REINA
 
                 while (pos_piezas.tablero[aux.fila, aux.columna] != 0
-                    && (casillas_amenazadas.tablero[aux.fila, aux.columna] == 6 ||
+                    || (casillas_amenazadas.tablero[aux.fila, aux.columna] == 6 ||
                     casillas_amenazadas.tablero[aux.fila, aux.columna] == 2) && ((aux.columna == arrayPiezas[2].pos.columna ||
                     aux.fila == arrayPiezas[2].pos.fila) || (aux.columna == arrayPiezas[3].pos.columna ||
                     aux.fila == arrayPiezas[3].pos.fila)))
@@ -82,15 +84,17 @@ namespace TP_consola_Mendiburu_Geonas
 
                 if (pos_piezas.tablero[aux.fila, aux.columna] == 0)
                 {
-                    pos_piezas.tablero[aux.fila, aux.columna] = 8;//alfil 2
+                    pos_piezas.tablero[aux.fila, aux.columna] = 8;//Reina
                     arrayPiezas[6].pos = aux;
-                    casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[6], true);
+                    casillas_amenazadas.AmenazasMovimientoReina(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[6], true);
                 }
-
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 //busco primer posición vacia ->pongo caballo
                 try
                 {
-                    arrayPiezas[0].pos = pos_piezas.BuscarPosicionLibre();
+                    arrayPiezas[0].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
                 }
                 catch (Exception ex)
                 {
@@ -107,6 +111,9 @@ namespace TP_consola_Mendiburu_Geonas
 
                 casillas_amenazadas.AmenazasMovimientoCaballos(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[0], true);
                 //busco segunda->otro caballo
+                pos_piezas.ImprimirTablero();
+                casillas_amenazadas.ImprimirTablero();
+                cant_amenazasxCasillas.ImprimirTablero();
                 try
                 {
                     arrayPiezas[1].pos = pos_piezas.BuscarPosicionLibre();

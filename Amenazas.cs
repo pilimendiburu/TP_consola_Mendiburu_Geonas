@@ -24,19 +24,50 @@ namespace TP_consola_Mendiburu_Geonas
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (i <= pieza.pos.fila - 2 || i <= pieza.pos.fila + 2)
+                    if (i == pieza.pos.fila)
+                        break;
+                    if((i==(pieza.pos.fila+2)&&pieza.pos.columna+1==j)||(i==pieza.pos.fila-2&&pieza.pos.columna+1==j))
                     {
-                        if (j <= pieza.pos.columna - 2 || j <= pieza.pos.columna + 2)
+                        if (sumar)
                         {
-                            if (sumar)
-                            {
-                                tablero[i, pieza.pos.columna] = (int)pieza.tipoPieza;
-                                Amz_x_Cas[i, pieza.pos.columna]++;
-                            }
-                            else
-                                Amz_x_Cas[i, pieza.pos.columna]--;
+                            tablero[i,j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i,j]++;
                         }
+                        else
+                            Amz_x_Cas[i, j]--;
                     }
+                    if ((pieza.pos.fila+2==i&&j==pieza.pos.columna-1)||(pieza.pos.fila-2==i&&j==pieza.pos.columna-1))
+                    {
+
+                        if (sumar)
+                        {
+                            tablero[i, j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i, j]++;
+                        }
+                        else
+                            Amz_x_Cas[i, j]--;
+                    }
+                    if ((pieza.pos.fila+1==i&&j==pieza.pos.columna+2)||(pieza.pos.fila-1==i&&j==pieza.pos.columna+2))
+                    {
+                        if (sumar)
+                        {
+                            tablero[i,j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i,j]++;
+                        }
+                        else
+                            Amz_x_Cas[i, pieza.pos.columna]--;
+                    }
+                    if ((pieza.pos.fila+1==i&&j==pieza.pos.columna-2)||(pieza.pos.fila-1==i&&j==pieza.pos.columna-2))
+                    {
+                        if (sumar)
+                        {
+                            tablero[i, j] = (int)pieza.tipoPieza;
+                            Amz_x_Cas[i, j]++;
+                        }
+                        else
+                            Amz_x_Cas[i,j]--;
+                    }
+                    
                 }
             }
             Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] = Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] - 1;
