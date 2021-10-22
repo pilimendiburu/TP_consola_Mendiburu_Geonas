@@ -241,9 +241,9 @@ namespace TP_consola_Mendiburu_Geonas
             // throw Exceptio
             //si la posicion es -1 ¡Tengo tablero!
             //return pos;
-            throw new NullReferenceException("Error.");
+            //throw new NullReferenceException("Error.");
 
-            //  return pos;//seria -1, podemos tirar excepcion?
+            return pos;//seria -1, podemos tirar excepcion?
         }
         public void AmenazasMovimientoRey(int[,] Amz_x_Cas, int[,] pos_piezas, Pieza pieza, bool sumar)
         {
