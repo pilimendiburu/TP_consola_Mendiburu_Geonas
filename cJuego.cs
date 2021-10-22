@@ -102,7 +102,7 @@ namespace TP_consola_Mendiburu_Geonas
                 //casillas_amenazadas.ImprimirTablero();
                 //cant_amenazasxCasillas.ImprimirTablero();
                 //busco primer posición vacia ->pongo caballo
-                arrayPiezas[0].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
+                arrayPiezas[0].pos = cant_amenazasxCasillas.BuscarPosicionLibre((int)arrayPiezas[0].tipoPieza, arrayPiezas, matriz_alfil.tablero);
                 if (arrayPiezas[0].pos.fila == -1 && arrayPiezas[0].pos.fila == -1)
                 {
                     cant_tab_generados++;
@@ -127,7 +127,7 @@ namespace TP_consola_Mendiburu_Geonas
                     //pos_piezas.ImprimirTablero();
                     //casillas_amenazadas.ImprimirTablero();
                     //cant_amenazasxCasillas.ImprimirTablero();
-                    arrayPiezas[1].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
+                    arrayPiezas[1].pos = cant_amenazasxCasillas.BuscarPosicionLibre((int)arrayPiezas[1].tipoPieza,arrayPiezas,matriz_alfil.tablero);
                     if (arrayPiezas[1].pos.fila == -1 && arrayPiezas[1].pos.fila == -1)
                     {
                         cant_tab_generados++;
@@ -154,7 +154,7 @@ namespace TP_consola_Mendiburu_Geonas
                          cant_amenazasxCasillas.ImprimirTablero();*/
                         //busco tercera->rey
                         //REY -> me fijo si no hay ninguna pieza o si esta el alfil -> puedo superponer
-                        arrayPiezas[7].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
+                        arrayPiezas[7].pos = cant_amenazasxCasillas.BuscarPosicionLibre((int)arrayPiezas[7].tipoPieza, arrayPiezas, matriz_alfil.tablero);
                         if (arrayPiezas[7].pos.fila == -1 && arrayPiezas[7].pos.fila == -1)
                         {
                             cant_tab_generados++;
@@ -227,38 +227,7 @@ namespace TP_consola_Mendiburu_Geonas
                                     //si cuanas casillas libres->rip
                                     //ya tengo posicion con mi maximo-> movemos pieza posicionada en lugar de mas amenazas
                                     int max = casillas_amenazadas.tablero[casillas_amenazadas.pos_max_amenazas.fila, casillas_amenazadas.pos_max_amenazas.columna];
-                                    if (max == 6)
-                                    {
-                                        while (matriz_alfil.tablero[aux.fila, aux.columna] != 1)
-                                        {
-                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
-                                        }
-                                    }
-                                    if (max == 7)
-                                    {
-                                        while (matriz_alfil.tablero[aux.fila, aux.columna] != 2)
-                                        {
-                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
-                                        }
-                                    }
-                                    if (max == 4)
-                                    {
-                                        while (aux.columna == arrayPiezas[3].pos.columna || aux.fila == arrayPiezas[3].pos.fila)
-                                        {
-                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
-                                        }
-                                    }
-                                    if (max == 5)
-                                    {
-                                        while (aux.columna == arrayPiezas[2].pos.columna || aux.fila == arrayPiezas[2].pos.fila)
-                                        {
-                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
-                                    }
+                                    arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre(max, arrayPiezas, matriz_alfil.tablero);
                                     if (arrayPiezas[max - 2].pos.fila == -1 && arrayPiezas[max - 2].pos.columna == -1)
                                     {
                                         cant_tab_generados++;
@@ -270,13 +239,14 @@ namespace TP_consola_Mendiburu_Geonas
                                     {
                                         pos_piezas.LiberarPieza(max);
                                         pos_piezas.tablero[arrayPiezas[max - 2].pos.fila, arrayPiezas[max - 2].pos.columna] = (int)arrayPiezas[max - 2].tipoPieza;
-                                        casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[max - 2], pos_piezas.tablero);
-                                        // casillas_amenazadas.InicializarMatrizEn0();
+                                        //casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[max - 2], pos_piezas.tablero);
+                                        casillas_amenazadas.InicializarMatrizEn0();
                                         cant_amenazasxCasillas.InicializarMatrizEn0();
+                                 
                                         casillas_amenazadas.AmenazarTablero(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas, true);
 
                                         //-------------------------------------------------------
-                                        cca = 0;
+                                        casillas_amenazadas.casillas_no_amenazadas = 0;
                                         for (int k = 0; k < 8; k++)
                                         {
                                             for (int l = 0; l < 8; l++)
@@ -287,7 +257,7 @@ namespace TP_consola_Mendiburu_Geonas
                                                     posSinAmenaza.fila = k;
                                                     posSinAmenaza.columna = l;//en un futuro capaz hacer un struct posición           que tenga columna y fila
                                                                               //ya significa que no encontro una solucion
-                                                    casillas_amenazadas.casillas_no_amenazadas = cca + 1;
+                                                    casillas_amenazadas.casillas_no_amenazadas = casillas_amenazadas.casillas_no_amenazadas + 1;
                                                 }
                                             }
                                         }
@@ -305,7 +275,7 @@ namespace TP_consola_Mendiburu_Geonas
                                     else
                                     {                                    //HAGO NUEVOS MOVIMIENTOS DE PIEZAS
 
-                                        contador++;//si no llegamos a obtener un tablero despues de repetir proceso 3 veces-> empezamos de 0
+                                        contador++;//si no llegamos a obtener un tablero despues de repetir proceso 5 veces-> empezamos de 0
 
                                     }
 

@@ -212,7 +212,7 @@ namespace TP_consola_Mendiburu_Geonas
             AmenazasMovimientoTorre(Amz_x_Cas, pos_piezas, pieza, sumar);
             Amz_x_Cas[pieza.pos.fila, pieza.pos.columna] += 1; 
         }
-        public cPosicion BuscarPosicionLibre(bool rey = false)
+        public cPosicion BuscarPosicionLibre(int pieza, Pieza[] arrayPiezas, int[,] matriz_alfil,bool rey = false)
         {
             //int cont = 0;
             cPosicion pos = new cPosicion();
@@ -220,25 +220,53 @@ namespace TP_consola_Mendiburu_Geonas
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (rey)
+                    pos.fila = i;
+                    pos.columna = j;
+                    //casillas_no_amenazadas = cont + 1
+                    switch (pieza)
                     {
-                        if (0 == tablero[i, j] || tablero[i, j] == 6 || tablero[i, j] == 7)
-                        {
-                            pos.fila = i;
-                            pos.columna = j;
+                       
+                        case 2:
+                        case 3:
+                        case 8:
+                        case 9:
                             return pos;
-                            //casillas_no_amenazadas=cont+1;
-                        }
+                        case 4:
+                            {
+                                if (pos.columna != arrayPiezas[3].pos.columna || pos.fila != arrayPiezas[3].pos.fila)
+                                    return pos;
+                                break;
+                              
+                            }
+                        case 5:
+                            {
+                                if (pos.columna != arrayPiezas[2].pos.columna || pos.fila != arrayPiezas[2].pos.fila)
+                                    return pos;
+                                break;
+                            }
+                        case 6:
+                            {
+                                if (matriz_alfil[pos.fila, pos.columna] == 1)
+                                    return pos;
+                                break;
+                            }
+                        case 7:
+                            {
+                                if (matriz_alfil[pos.fila, pos.columna] == 2)
+                                    return pos;
+                                break;
+                            }
+                       
                     }
-                    else if (0 == tablero[i, j])
-                    {
-                        pos.fila = i;
-                        pos.columna = j;
-                        //casillas_no_amenazadas = cont + 1;
-                        return pos;
-                    }
+                    
+                   
                 }
+
             }
+                       
+
+               
+       
             // throw Exceptio
             //si la posicion es -1 ¡Tengo tablero!
             //return pos;
