@@ -255,16 +255,6 @@ namespace TP_consola_Mendiburu_Geonas
                                             arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
                                         }
                                     }
-                                    if (max == 8)
-                                    {
-                                        while ((casillas_amenazadas.tablero[aux.fila, aux.columna] == 6 ||
-                    casillas_amenazadas.tablero[aux.fila, aux.columna] == 2) && ((aux.columna == arrayPiezas[2].pos.columna ||
-                    aux.fila == arrayPiezas[2].pos.fila) || (aux.columna == arrayPiezas[3].pos.columna ||
-                    aux.fila == arrayPiezas[3].pos.fila)))
-                                        {
-                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
-                                        }
-                                    }
                                     else
                                     {
                                         arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
