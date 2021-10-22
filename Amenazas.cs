@@ -12,6 +12,7 @@ namespace TP_consola_Mendiburu_Geonas
         public int casillas_no_amenazadas;
         public cPosicion pos_max_amenazas;
         public int max_amenazas;
+        //char[,] ataques_fatales_y_leves = new char[8, 8];
         public Amenazas()
         {
             casillas_no_amenazadas = 0;
@@ -385,5 +386,6 @@ namespace TP_consola_Mendiburu_Geonas
                 }
             }
         }
+       
     }
 }

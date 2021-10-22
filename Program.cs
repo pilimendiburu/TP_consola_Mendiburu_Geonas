@@ -6,7 +6,7 @@ namespace TP_consola_Mendiburu_Geonas
     {
         static void Main(string[] args)
         {
-            cJuego partida = new cJuego();
+            cJuego partida = new cJuego();//tuvimos en cuenta los bordes del tablero haciendo los randoms de 0 a 8
             partida.InicializarTableroAlfil();
             partida.arrayPiezas = CrearPiezas();
             partida.GenerarTableros();

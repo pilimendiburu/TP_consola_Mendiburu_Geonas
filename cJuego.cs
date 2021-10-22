@@ -16,6 +16,7 @@ namespace TP_consola_Mendiburu_Geonas
         cTablero pos_piezas;
         Amenazas cant_amenazasxCasillas;
         public Pieza[] arrayPiezas;
+       
 
         public void GenerarTableros()
         {
@@ -226,10 +227,8 @@ namespace TP_consola_Mendiburu_Geonas
                                     //si cuanas casillas libres->rip
                                     //ya tengo posicion con mi maximo-> movemos pieza posicionada en lugar de mas amenazas
                                     int max = casillas_amenazadas.tablero[casillas_amenazadas.pos_max_amenazas.fila, casillas_amenazadas.pos_max_amenazas.columna];
-                                    cPosicion posicion_vacia = new cPosicion();
-                                    posicion_vacia = pos_piezas.LiberarPieza(max);
                                     arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
-                                    pos_piezas.tablero[arrayPiezas[max - 2].pos.fila, arrayPiezas[max - 2].pos.columna] = (int)arrayPiezas[max - 2].tipoPieza;
+
                                     if (arrayPiezas[max - 2].pos.fila == -1 && arrayPiezas[max - 2].pos.columna == -1)
                                     {
                                         cant_tab_generados++;
@@ -239,6 +238,7 @@ namespace TP_consola_Mendiburu_Geonas
                                     }
                                     else
                                     {
+                                        pos_piezas.LiberarPieza(max);
                                         pos_piezas.tablero[arrayPiezas[max - 2].pos.fila, arrayPiezas[max - 2].pos.columna] = (int)arrayPiezas[max - 2].tipoPieza;
                                         casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[max - 2], pos_piezas.tablero);
                                         casillas_amenazadas.AmenazarTablero(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas, true);
@@ -284,6 +284,7 @@ namespace TP_consola_Mendiburu_Geonas
             }
         }//termina el while
 
+       
         public cJuego()
         {
             cant_tableros_a_generar = 10;//inicializo 10 pa que funque
