@@ -19,15 +19,20 @@ namespace TP_consola_Mendiburu_Geonas
 
         public void GenerarTableros()
         {
+            cant_tab_generados = 0;
+            //poner matrices en 0
             while (cant_tab_generados < cant_tableros_a_generar)//-> necesito completar n tableros
             {
-
+                pos_piezas = new cTablero();
+                casillas_amenazadas = new Amenazas();
+                cant_amenazasxCasillas = new Amenazas();
                 //---------------------------------------------------------
                 //TORRE1
                 arrayPiezas[2].pos.EleccionAlAzar();
                 casillas_amenazadas.AmenazasMovimientoTorre(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[2], true);
                 pos_piezas.tablero[arrayPiezas[2].pos.fila, arrayPiezas[2].pos.columna] = (int)arrayPiezas[2].tipoPieza;
-                //pos_piezas.ImprimirTablero();
+                /*Console.WriteLine("\nPosicion piezas:");
+                pos_piezas.ImprimirTablero();*/
                 //casillas_amenazadas.ImprimirTablero();
                 //cant_amenazasxCasillas.ImprimirTablero();
                 //TORRE 2:
@@ -45,7 +50,8 @@ namespace TP_consola_Mendiburu_Geonas
                                                                   //COMPLETO POSICIONES AMENAZADAS CON EL CABALLO DESDE POSICION PROPUESTA
                     casillas_amenazadas.AmenazasMovimientoTorre(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[3], true);
                 }
-                //pos_piezas.ImprimirTablero();
+                /*Console.WriteLine("\nPosicion piezas:");
+                pos_piezas.ImprimirTablero();*/
                 //casillas_amenazadas.ImprimirTablero();
                 //cant_amenazasxCasillas.ImprimirTablero();
 
@@ -57,7 +63,8 @@ namespace TP_consola_Mendiburu_Geonas
                 pos_piezas.tablero[aux.fila, aux.columna] = 6;//alfil 1
                 arrayPiezas[4].pos = aux;
                 casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[4], true);
-                //pos_piezas.ImprimirTablero();
+                /*Console.WriteLine("\nPosicion piezas:");
+                pos_piezas.ImprimirTablero();*/
                 //casillas_amenazadas.ImprimirTablero();
                 //cant_amenazasxCasillas.ImprimirTablero();
                 //ALFIL 2
@@ -68,7 +75,8 @@ namespace TP_consola_Mendiburu_Geonas
                 pos_piezas.tablero[aux.fila, aux.columna] = 7;//alfil 2
                 arrayPiezas[5].pos = aux;
                 casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[5], true);
-                //pos_piezas.ImprimirTablero();
+               /* Console.WriteLine("\nPosicion piezas:");
+                pos_piezas.ImprimirTablero();*/
                 //casillas_amenazadas.ImprimirTablero();
                 //cant_amenazasxCasillas.ImprimirTablero();
                 //REINA
@@ -96,8 +104,11 @@ namespace TP_consola_Mendiburu_Geonas
                 arrayPiezas[0].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
                 if (arrayPiezas[0].pos.fila == -1 && arrayPiezas[0].pos.fila == -1)
                 {
-                    cant_amenazasxCasillas.ImprimirTablero();
                     cant_tab_generados++;
+                    Console.WriteLine("\nTengo tablero numero:" + cant_tab_generados);
+                    cant_amenazasxCasillas.ImprimirTablero();
+                    pos_piezas.ImprimirTablero();
+                   
 
                 }
                 else
@@ -118,8 +129,11 @@ namespace TP_consola_Mendiburu_Geonas
                     arrayPiezas[1].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
                     if (arrayPiezas[1].pos.fila == -1 && arrayPiezas[1].pos.fila == -1)
                     {
-                        cant_amenazasxCasillas.ImprimirTablero();
                         cant_tab_generados++;
+                        Console.WriteLine("\nTengo tablero numero:" + cant_tab_generados);
+                        cant_amenazasxCasillas.ImprimirTablero();
+                        pos_piezas.ImprimirTablero();
+
                     }
                     else
                     {
@@ -134,24 +148,27 @@ namespace TP_consola_Mendiburu_Geonas
                                                                                                     // ...
                                                                                                     //COMPLETO MATRIZ cant_amenazas_casillas CON 1 EN LAS POSICIONES DONDE AMENAZA CABALLO
                         casillas_amenazadas.AmenazasMovimientoCaballos(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[1], true);
-                        pos_piezas.ImprimirTablero();
+                       /* pos_piezas.ImprimirTablero();
                         casillas_amenazadas.ImprimirTablero();
-                        cant_amenazasxCasillas.ImprimirTablero();
+                        cant_amenazasxCasillas.ImprimirTablero();*/
                         //busco tercera->rey
                         //REY -> me fijo si no hay ninguna pieza o si esta el alfil -> puedo superponer
                         arrayPiezas[7].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
                         if (arrayPiezas[7].pos.fila == -1 && arrayPiezas[7].pos.fila == -1)
                         {
-                            cant_amenazasxCasillas.ImprimirTablero();
                             cant_tab_generados++;
+                            Console.WriteLine("\nTengo tablero numero:" + cant_tab_generados);
+                            cant_amenazasxCasillas.ImprimirTablero();
+                            pos_piezas.ImprimirTablero();
+
                         }
                         else
                         {
                             pos_piezas.tablero[arrayPiezas[7].pos.fila, arrayPiezas[7].pos.columna] = 9;
                             casillas_amenazadas.AmenazasMovimientoRey(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[7], true);
-                            pos_piezas.ImprimirTablero();
+                            /*pos_piezas.ImprimirTablero();
                             casillas_amenazadas.ImprimirTablero();
-                            cant_amenazasxCasillas.ImprimirTablero();
+                            cant_amenazasxCasillas.ImprimirTablero();*/
                             //UNA VEZ QUE TENGO COMPLETA MATRICES
                             cPosicion pos_sin_Amenazas = new cPosicion();
                             int contador = 0, cca = 0;
@@ -176,8 +193,12 @@ namespace TP_consola_Mendiburu_Geonas
 
                                 if (cant_amenazasxCasillas.casillas_no_amenazadas == 0)
                                 {// si matriz amenazada completa que termine el while
+                                    cant_tab_generados++;
+                                    Console.WriteLine("\nTengo tablero numero:" + cant_tab_generados);
                                     pos_piezas.ImprimirTablero();
-                                    cant_tab_generados++;//tengo tablero
+                                    pos_piezas.ImprimirTablero();
+
+                                    //tengo tablero
                                 }
                                 else
                                 {
@@ -210,6 +231,8 @@ namespace TP_consola_Mendiburu_Geonas
                                     arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
                                     if (arrayPiezas[max - 2].pos.fila == -1 && arrayPiezas[max - 2].pos.columna == -1)
                                     {
+                                        cant_tab_generados++;
+                                        Console.WriteLine("\nTengo tablero numero:" + cant_tab_generados);
                                         casillas_amenazadas.ImprimirTablero();
                                         pos_piezas.ImprimirTablero();
                                     }
@@ -239,7 +262,11 @@ namespace TP_consola_Mendiburu_Geonas
                                     }
                                     if (casillas_amenazadas.casillas_no_amenazadas == 0)
                                     {//si matriz amenazada completa que termine el while
+                                        cant_tab_generados++;
+                                        Console.WriteLine("\nTengo tablero numero:" + cant_tab_generados);
                                         pos_piezas.ImprimirTablero();
+                                        pos_piezas.ImprimirTablero();
+
 
                                     }
                                     else
