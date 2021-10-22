@@ -229,6 +229,7 @@ namespace TP_consola_Mendiburu_Geonas
                                     cPosicion posicion_vacia = new cPosicion();
                                     posicion_vacia = pos_piezas.LiberarPieza(max);
                                     arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
+                                    pos_piezas.tablero[arrayPiezas[max - 2].pos.fila, arrayPiezas[max - 2].pos.columna] = (int)arrayPiezas[max - 2].tipoPieza;
                                     if (arrayPiezas[max - 2].pos.fila == -1 && arrayPiezas[max - 2].pos.columna == -1)
                                     {
                                         cant_tab_generados++;
