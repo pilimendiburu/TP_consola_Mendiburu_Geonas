@@ -16,7 +16,7 @@ namespace TP_consola_Mendiburu_Geonas
         cTablero pos_piezas;
         Amenazas cant_amenazasxCasillas;
         public Pieza[] arrayPiezas;
-       
+
 
         public void GenerarTableros()
         {
@@ -76,8 +76,8 @@ namespace TP_consola_Mendiburu_Geonas
                 pos_piezas.tablero[aux.fila, aux.columna] = 7;//alfil 2
                 arrayPiezas[5].pos = aux;
                 casillas_amenazadas.AmenazasMovimientoAlfil(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[5], true);
-               /* Console.WriteLine("\nPosicion piezas:");
-                pos_piezas.ImprimirTablero();*/
+                /* Console.WriteLine("\nPosicion piezas:");
+                 pos_piezas.ImprimirTablero();*/
                 //casillas_amenazadas.ImprimirTablero();
                 //cant_amenazasxCasillas.ImprimirTablero();
                 //REINA
@@ -109,7 +109,7 @@ namespace TP_consola_Mendiburu_Geonas
                     Console.WriteLine("\nTengo tablero numero:" + cant_tab_generados);
                     cant_amenazasxCasillas.ImprimirTablero();
                     pos_piezas.ImprimirTablero();
-                   
+
 
                 }
                 else
@@ -149,9 +149,9 @@ namespace TP_consola_Mendiburu_Geonas
                                                                                                     // ...
                                                                                                     //COMPLETO MATRIZ cant_amenazas_casillas CON 1 EN LAS POSICIONES DONDE AMENAZA CABALLO
                         casillas_amenazadas.AmenazasMovimientoCaballos(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas[1], true);
-                       /* pos_piezas.ImprimirTablero();
-                        casillas_amenazadas.ImprimirTablero();
-                        cant_amenazasxCasillas.ImprimirTablero();*/
+                        /* pos_piezas.ImprimirTablero();
+                         casillas_amenazadas.ImprimirTablero();
+                         cant_amenazasxCasillas.ImprimirTablero();*/
                         //busco tercera->rey
                         //REY -> me fijo si no hay ninguna pieza o si esta el alfil -> puedo superponer
                         arrayPiezas[7].pos = cant_amenazasxCasillas.BuscarPosicionLibre();
@@ -210,7 +210,7 @@ namespace TP_consola_Mendiburu_Geonas
 
                                     //MUEVO PIEZA DONDE HAY MAYOR CANTIDAD DE AMENAZAS -> me fijo con matriz cant_amenazas 
                                     //muevo 1 pieza por 2/3 casillas no amenazadas -> lo intento 3 veces si no funca empieza de nuevo
-
+                                    cant_amenazasxCasillas.max_amenazas = 0;
                                     for (int i = 0; i < 8; i++)
                                     {
                                         for (int j = 0; j < 8; j++)
@@ -227,8 +227,48 @@ namespace TP_consola_Mendiburu_Geonas
                                     //si cuanas casillas libres->rip
                                     //ya tengo posicion con mi maximo-> movemos pieza posicionada en lugar de mas amenazas
                                     int max = casillas_amenazadas.tablero[casillas_amenazadas.pos_max_amenazas.fila, casillas_amenazadas.pos_max_amenazas.columna];
-                                    arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
-
+                                    if (max == 6)
+                                    {
+                                        while (matriz_alfil.tablero[aux.fila, aux.columna] != 1)
+                                        {
+                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
+                                        }
+                                    }
+                                    if (max == 7)
+                                    {
+                                        while (matriz_alfil.tablero[aux.fila, aux.columna] != 2)
+                                        {
+                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
+                                        }
+                                    }
+                                    if (max == 4)
+                                    {
+                                        while (aux.columna == arrayPiezas[3].pos.columna || aux.fila == arrayPiezas[3].pos.fila)
+                                        {
+                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
+                                        }
+                                    }
+                                    if (max == 5)
+                                    {
+                                        while (aux.columna == arrayPiezas[2].pos.columna || aux.fila == arrayPiezas[2].pos.fila)
+                                        {
+                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
+                                        }
+                                    }
+                                    if (max == 8)
+                                    {
+                                        while ((casillas_amenazadas.tablero[aux.fila, aux.columna] == 6 ||
+                    casillas_amenazadas.tablero[aux.fila, aux.columna] == 2) && ((aux.columna == arrayPiezas[2].pos.columna ||
+                    aux.fila == arrayPiezas[2].pos.fila) || (aux.columna == arrayPiezas[3].pos.columna ||
+                    aux.fila == arrayPiezas[3].pos.fila)))
+                                        {
+                                            arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
+                                    }
                                     if (arrayPiezas[max - 2].pos.fila == -1 && arrayPiezas[max - 2].pos.columna == -1)
                                     {
                                         cant_tab_generados++;
@@ -241,6 +281,8 @@ namespace TP_consola_Mendiburu_Geonas
                                         pos_piezas.LiberarPieza(max);
                                         pos_piezas.tablero[arrayPiezas[max - 2].pos.fila, arrayPiezas[max - 2].pos.columna] = (int)arrayPiezas[max - 2].tipoPieza;
                                         casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[max - 2], pos_piezas.tablero);
+                                        // casillas_amenazadas.InicializarMatrizEn0();
+                                        cant_amenazasxCasillas.InicializarMatrizEn0();
                                         casillas_amenazadas.AmenazarTablero(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas, true);
 
                                         //-------------------------------------------------------
@@ -276,6 +318,7 @@ namespace TP_consola_Mendiburu_Geonas
                                         contador++;//si no llegamos a obtener un tablero despues de repetir proceso 3 veces-> empezamos de 0
 
                                     }
+
                                 }
                             }
                         }
@@ -284,7 +327,7 @@ namespace TP_consola_Mendiburu_Geonas
             }
         }//termina el while
 
-       
+
         public cJuego()
         {
             cant_tableros_a_generar = 10;//inicializo 10 pa que funque
@@ -316,6 +359,6 @@ namespace TP_consola_Mendiburu_Geonas
             }
         }
     }
-} 
+}
 
 

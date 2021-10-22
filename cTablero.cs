@@ -43,6 +43,16 @@ namespace TP_consola_Mendiburu_Geonas
                 }
             }
         }
+        public void InicializarMatrizEn0()
+        {
+            for (int i = 0; i < tablero.GetLength(0); i++)
+            {
+                for (int j = 0; j < tablero.GetLength(1); j++)
+                {
+                    tablero[i, j] = 0;
+                }
+            }
+        }
         public void ImprimirTablero()
         {
             Console.WriteLine("Tablero\n");
