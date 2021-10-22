@@ -20,5 +20,6 @@ namespace TP_consola_Mendiburu_Geonas
             tipoPieza = tipo_pieza;
         }
 
+
     }
 }

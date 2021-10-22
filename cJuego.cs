@@ -173,7 +173,7 @@ namespace TP_consola_Mendiburu_Geonas
                             //UNA VEZ QUE TENGO COMPLETA MATRICES
                             cPosicion pos_sin_Amenazas = new cPosicion();
                             int contador = 0, cca = 0;
-                            while (contador < 5)
+                            while (contador < 10)
                             {
                                 //1) Nos fijamos si la matriz propuesta (aleatoriamente) -> si esta toda amenazada corto el while
                                 //-> tenemos un tablero
