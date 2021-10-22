@@ -172,6 +172,8 @@ namespace TP_consola_Mendiburu_Geonas
 
                     if (cant_amenazasxCasillas.casillas_no_amenazadas == 0)
                     {// si matriz amenazada completa que termine el while
+                        cant_tab_generados++;
+                        Console.WriteLine("TABLERO NRO __ GENERADO!!! :) \n");
                         pos_piezas.ImprimirTablero();
                         break;//tengo tablero
                     }
@@ -182,6 +184,9 @@ namespace TP_consola_Mendiburu_Geonas
 
                     //MUEVO PIEZA DONDE HAY MAYOR CANTIDAD DE AMENAZAS -> me fijo con matriz cant_amenazas 
                     //muevo 1 pieza por 2/3 casillas no amenazadas -> lo intento 3 veces si no funca empieza de nuevo
+
+                    
+
 
                     for (int i = 0; i < 8; i++)
                     {
@@ -196,6 +201,11 @@ namespace TP_consola_Mendiburu_Geonas
 
                         }
                     }
+                   
+
+                    //------------------------------------------------------------
+                    //PARA MI ESTO NO VA:
+                    //->
                     //si cuanas casillas libres->rip
                     //ya tengo posicion con mi maximo-> movemos pieza posicionada en lugar de mas amenazas
                     int max = casillas_amenazadas.tablero[cant_amenazasxCasillas.pos_max_amenazas.fila, cant_amenazasxCasillas.pos_max_amenazas.columna];
@@ -203,8 +213,17 @@ namespace TP_consola_Mendiburu_Geonas
                     posicion_vacia = pos_piezas.LiberarPieza(max);
                     arrayPiezas[max - 2].pos = casillas_amenazadas.BuscarPosicionLibre();
                     pos_piezas.tablero[arrayPiezas[max - 2].pos.fila, arrayPiezas[max - 2].pos.columna] = (int)arrayPiezas[max - 2].tipoPieza;
+                    //-> 
+
+                    //Tenemos pieza donde hay mayor cantidad de ameanzas
+                    // Y sabemos en que posicion esta esa pieza (porque la tenemos guardada)
+                    //Tambien tenemos pos libre-> pos_sin_amenazas.fila, pos_sin_amenazas.columna
+                    //=> sacamos pieza de posicion original y la llevamos a pos_sin_amenazas
+
                     casillas_amenazadas.BuscarYdesamenazar_porPieza(cant_amenazasxCasillas.tablero, arrayPiezas[max - 2], pos_piezas.tablero);
                     casillas_amenazadas.AmenazarTablero(cant_amenazasxCasillas.tablero, pos_piezas.tablero, arrayPiezas, true);
+                    
+                    //creo que esto no va: (nos fijamos abajo si matriz esta del todo amenazada)
                     if (casillas_amenazadas.casillas_no_amenazadas == 0)
                     {
                         //si matriz amenazada completa que termine el while
@@ -212,6 +231,8 @@ namespace TP_consola_Mendiburu_Geonas
                         break;
                     }
                     //-------------------------------------------------------
+                    
+                    //me fijo si con movimiento se amenazo todo el tablero
                     cca = 0;
                     for (int k = 0; k < 8; k++)
                     {
@@ -231,16 +252,18 @@ namespace TP_consola_Mendiburu_Geonas
                 }
                 if (casillas_amenazadas.casillas_no_amenazadas == 0)
                 {//si matriz amenazada completa que termine el while
+                    cant_tab_generados++;
+                    Console.WriteLine("TABLERO NRO __ GENERADO!!! :) \n");
                     pos_piezas.ImprimirTablero();
-                    break;
+                    break;//terminar el while!
                 }
                 //HAGO NUEVOS MOVIMIENTOS DE PIEZAS
 
                 contador++;//si no llegamos a obtener un tablero despues de repetir proceso 3 veces-> empezamos de 0
             }
         }//termina el while
-    }
-}
+
+    
        public cJuego()
         {
             cant_tableros_a_generar = 10;//inicializo 10 pa que funque
@@ -271,7 +294,8 @@ namespace TP_consola_Mendiburu_Geonas
                 }
             }
         }
-
+    
     }
-}
+} 
+
 
